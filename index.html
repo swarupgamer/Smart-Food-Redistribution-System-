@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FoodShare — Connecting Hearts, Reducing Waste</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --green: #2ecc71;
+  --green-dark: #27ae60;
+  --green-light: #d5f5e3;
+  --orange: #f39c12;
+  --dark: #0d1117;
+  --dark2: #161b22;
+  --dark3: #21262d;
+  --text: #e6edf3;
+  --text-muted: #8b949e;
+  --white: #ffffff;
+  --radius: 16px;
+  --shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--dark);
+  color: var(--text);
+  overflow-x: hidden;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; justify-content:space-between; align-items:center;
+  padding: 20px 60px;
+  background: rgba(13,17,23,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-icon { width:36px; height:36px; background: var(--green); border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.logo h2 { font-family:'Playfair Display',serif; font-size:22px; color:var(--white); letter-spacing:0.5px; }
+nav ul { list-style:none; display:flex; align-items:center; gap:8px; }
+nav ul li a {
+  text-decoration:none; color: var(--text-muted);
+  font-size:14px; font-weight:500;
+  padding: 8px 16px; border-radius:8px;
+  transition:0.2s;
+}
+nav ul li a:hover { color:var(--white); background:var(--dark3); }
+.nav-cta {
+  background: var(--green) !important;
+  color: var(--dark) !important;
+  font-weight:600 !important;
+}
+.nav-cta:hover { background: var(--green-dark) !important; }
+
+/* ---- HERO ---- */
+.hero {
+  min-height:100vh;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  text-align:center; padding: 120px 20px 80px;
+  position:relative; overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(46,204,113,0.12) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 40% at 80% 20%, rgba(243,156,18,0.08) 0%, transparent 60%);
+}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background: rgba(46,204,113,0.1); border:1px solid rgba(46,204,113,0.25);
+  color: var(--green); padding:8px 18px; border-radius:50px; font-size:13px; font-weight:600;
+  margin-bottom:28px;
+  animation: fadeUp 0.6s ease both;
+}
+.hero h1 {
+  font-family:'Playfair Display',serif;
+  font-size: clamp(42px,6vw,80px); line-height:1.1;
+  color:var(--white); margin-bottom:24px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.hero h1 span { color: var(--green); }
+.hero p {
+  font-size:18px; color:var(--text-muted); max-width:560px; line-height:1.7;
+  margin-bottom:40px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+.hero-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; animation: fadeUp 0.6s 0.3s ease both; }
+.btn-primary {
+  padding: 14px 32px; border:none; border-radius:12px;
+  background: var(--green); color: var(--dark);
+  font-size:15px; font-weight:700; cursor:pointer; text-decoration:none;
+  transition:0.2s; display:inline-flex; align-items:center; gap:8px;
+}
+.btn-primary:hover { background:var(--green-dark); transform:translateY(-2px); box-shadow:0 8px 25px rgba(46,204,113,0.35); }
+.btn-outline {
+  padding: 14px 32px; border:1px solid rgba(255,255,255,0.15); border-radius:12px;
+  background: transparent; color: var(--text);
+  font-size:15px; font-weight:600; cursor:pointer; text-decoration:none;
+  transition:0.2s; display:inline-flex; align-items:center; gap:8px;
+}
+.btn-outline:hover { background:var(--dark3); border-color:rgba(255,255,255,0.3); }
+
+/* Stats */
+.stats {
+  display:flex; gap:50px; justify-content:center; flex-wrap:wrap;
+  margin-top:60px; padding-top:40px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.stat-item { text-align:center; }
+.stat-num { font-family:'Playfair Display',serif; font-size:36px; color:var(--white); font-weight:700; }
+.stat-label { font-size:13px; color:var(--text-muted); margin-top:4px; }
+
+/* ---- HOW IT WORKS ---- */
+.section { padding: 80px 60px; max-width:1200px; margin:0 auto; }
+.section-label { font-size:12px; font-weight:700; color:var(--green); text-transform:uppercase; letter-spacing:2px; margin-bottom:12px; }
+.section-title { font-family:'Playfair Display',serif; font-size:clamp(28px,3vw,42px); color:var(--white); margin-bottom:16px; }
+.section-sub { color:var(--text-muted); font-size:16px; max-width:500px; line-height:1.7; }
+
+.steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:24px; margin-top:50px; }
+.step-card {
+  background:var(--dark2); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius);
+  padding:32px; position:relative; transition:0.3s;
+}
+.step-card:hover { border-color:rgba(46,204,113,0.3); transform:translateY(-4px); }
+.step-num {
+  position:absolute; top:20px; right:20px;
+  font-family:'Playfair Display',serif; font-size:48px; font-weight:900;
+  color:rgba(255,255,255,0.04);
+}
+.step-icon {
+  width:50px; height:50px; border-radius:12px;
+  background:rgba(46,204,113,0.1); border:1px solid rgba(46,204,113,0.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px; color:var(--green); margin-bottom:20px;
+}
+.step-card h3 { color:var(--white); font-size:18px; margin-bottom:10px; }
+.step-card p { color:var(--text-muted); font-size:14px; line-height:1.7; }
+
+/* ---- ROLES ---- */
+.roles-section { padding:80px 60px; background:var(--dark2); }
+.roles-inner { max-width:1200px; margin:0 auto; }
+.roles-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px; margin-top:50px; }
+.role-card {
+  background:var(--dark); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius);
+  padding:36px; text-align:center; transition:0.3s; cursor:pointer; text-decoration:none; display:block;
+}
+.role-card:hover { border-color:var(--green); transform:translateY(-6px); box-shadow:0 20px 50px rgba(46,204,113,0.12); }
+.role-icon { font-size:42px; margin-bottom:20px; }
+.role-card h3 { font-family:'Playfair Display',serif; font-size:22px; color:var(--white); margin-bottom:12px; }
+.role-card p { color:var(--text-muted); font-size:14px; line-height:1.7; margin-bottom:24px; }
+.role-tag {
+  display:inline-block; padding:6px 16px; border-radius:20px;
+  background:rgba(46,204,113,0.1); color:var(--green); font-size:12px; font-weight:600;
+}
+
+/* ---- FOOTER ---- */
+footer {
+  background:var(--dark); border-top:1px solid rgba(255,255,255,0.06);
+  padding:40px 60px; text-align:center; color:var(--text-muted); font-size:14px;
+}
+footer span { color:var(--green); }
+
+/* ---- ANIMATIONS ---- */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to { opacity:1; transform:translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <div class="logo-icon">🌿</div>
+    <h2>FoodShare</h2>
+  </div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="login.html">Login</a></li>
+    <li><a href="register.html" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-badge"><i class="fa fa-leaf"></i> Smart Food Redistribution Platform</div>
+  <h1>Feed People,<br>Not <span>Landfills</span></h1>
+  <p>Connecting restaurants, hotels & individuals who have surplus food with NGOs and communities in need — reducing waste, fighting hunger.</p>
+  <div class="hero-btns">
+    <a href="register.html" class="btn-primary"><i class="fa fa-heart"></i> Join FoodShare</a>
+    <a href="login.html" class="btn-outline"><i class="fa fa-sign-in-alt"></i> Login</a>
+  </div>
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-num" id="stat-meals">0</div>
+      <div class="stat-label">Meals Saved</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-providers">0</div>
+      <div class="stat-label">Food Providers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" id="stat-ngos">0</div>
+      <div class="stat-label">NGOs & Consumers</div>
+    </div>
+  </div>
+</section>
+
+<div class="section">
+  <div class="section-label">How It Works</div>
+  <div class="section-title">Simple. Fast. Impactful.</div>
+  <div class="section-sub">Three easy steps to get food from those who have it to those who need it.</div>
+  <div class="steps">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-icon"><i class="fa fa-user-plus"></i></div>
+      <h3>Register</h3>
+      <p>Sign up as a Food Provider, Consumer/NGO, or Admin. Quick and free.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-icon"><i class="fa fa-utensils"></i></div>
+      <h3>List or Browse</h3>
+      <p>Providers list surplus food. Consumers browse and request available donations.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-icon"><i class="fa fa-handshake"></i></div>
+      <h3>Connect & Collect</h3>
+      <p>Requests get approved, food gets collected. Zero waste, maximum impact.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-icon"><i class="fa fa-chart-line"></i></div>
+      <h3>Track Impact</h3>
+      <p>Admins monitor everything. Everyone sees the real-time impact of their actions.</p>
+    </div>
+  </div>
+</div>
+
+<div class="roles-section">
+  <div class="roles-inner">
+    <div class="section-label">For Everyone</div>
+    <div class="section-title">Choose Your Role</div>
+    <div class="roles-grid">
+      <a href="register.html" class="role-card">
+        <div class="role-icon">🍽️</div>
+        <h3>Food Provider</h3>
+        <p>Restaurants, hotels, caterers, and individuals with surplus food who want to donate instead of waste.</p>
+        <span class="role-tag">List Food Donations</span>
+      </a>
+      <a href="register.html" class="role-card">
+        <div class="role-icon">🤝</div>
+        <h3>Consumer / NGO</h3>
+        <p>NGOs, shelters, and individuals in need who want to request and collect available food donations.</p>
+        <span class="role-tag">Request Food</span>
+      </a>
+      <a href="login.html" class="role-card">
+        <div class="role-icon">🛡️</div>
+        <h3>Admin</h3>
+        <p>Platform administrators who manage users, approve listings, oversee requests, and monitor platform health.</p>
+        <span class="role-tag">Manage Platform</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 <span>FoodShare</span> — Smart Food Redistribution System | Built with ❤️ to fight hunger</p>
+</footer>
+
+<script>
+// Animate stats from DB
+function animateCount(el, target, suffix='') {
+  let count = 0;
+  const step = Math.ceil(target / 40);
+  const timer = setInterval(() => {
+    count = Math.min(count + step, target);
+    el.textContent = count + suffix;
+    if (count >= target) clearInterval(timer);
+  }, 40);
+}
+
+window.addEventListener('load', () => {
+  const users = JSON.parse(localStorage.getItem('fs_users') || '[]');
+  const foods = JSON.parse(localStorage.getItem('fs_foods') || '[]');
+  const requests = JSON.parse(localStorage.getItem('fs_requests') || '[]');
+  const providers = users.filter(u => u.role === 'provider').length || 12;
+  const ngos = users.filter(u => u.role === 'consumer').length || 8;
+  const meals = requests.filter(r => r.status === 'approved').length * 10 || 240;
+  animateCount(document.getElementById('stat-meals'), meals);
+  animateCount(document.getElementById('stat-providers'), providers);
+  animateCount(document.getElementById('stat-ngos'), ngos);
+});
+</script>
+</body>
+</html>

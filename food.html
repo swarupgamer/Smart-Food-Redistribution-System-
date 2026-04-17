@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Food — FoodShare</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root { --green:#2ecc71; --green-dark:#27ae60; --dark:#0d1117; --dark2:#161b22; --dark3:#21262d; --text:#e6edf3; --text-muted:#8b949e; --white:#ffffff; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'DM Sans',sans-serif; background:var(--dark); color:var(--text); min-height:100vh; display:flex; flex-direction:column; }
+nav { display:flex; justify-content:space-between; align-items:center; padding:16px 40px; background:var(--dark2); border-bottom:1px solid rgba(255,255,255,0.06); }
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-icon { width:34px; height:34px; background:var(--green); border-radius:9px; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.logo h2 { font-family:'Playfair Display',serif; font-size:20px; color:var(--white); }
+.nav-back { color:var(--text-muted); text-decoration:none; font-size:14px; }
+.nav-back:hover { color:var(--white); }
+.page { flex:1; display:flex; align-items:center; justify-content:center; padding:40px 20px; }
+.card { background:var(--dark2); border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:48px 40px; width:100%; max-width:500px; }
+.card-header { margin-bottom:32px; }
+.card-header h2 { font-family:'Playfair Display',serif; font-size:28px; color:var(--white); margin-bottom:8px; }
+.card-header p { color:var(--text-muted); }
+.form-group { margin-bottom:20px; }
+.form-group label { display:block; font-size:13px; font-weight:600; color:var(--text-muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px; }
+.input-wrap { position:relative; }
+.input-wrap i { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:14px; }
+.input-wrap input, .input-wrap textarea { width:100%; padding:13px 14px 13px 40px; background:var(--dark3); border:1px solid rgba(255,255,255,0.1); border-radius:10px; color:var(--text); font-size:15px; font-family:'DM Sans',sans-serif; transition:0.2s; }
+.input-wrap textarea { padding:13px 14px 13px 40px; resize:vertical; }
+.input-wrap input:focus, .input-wrap textarea:focus { outline:none; border-color:var(--green); }
+.input-wrap input::placeholder, .input-wrap textarea::placeholder { color:var(--text-muted); }
+.success-msg { background:rgba(46,204,113,0.1); border:1px solid rgba(46,204,113,0.3); color:var(--green); padding:14px 18px; border-radius:10px; font-size:14px; margin-bottom:20px; display:none; }
+.btn-submit { width:100%; padding:14px; border:none; border-radius:12px; background:var(--green); color:var(--dark); font-size:16px; font-weight:700; cursor:pointer; font-family:'DM Sans',sans-serif; transition:0.2s; }
+.btn-submit:hover { background:var(--green-dark); }
+.btn-back { width:100%; padding:12px; border:1px solid rgba(255,255,255,0.1); border-radius:12px; background:transparent; color:var(--text-muted); font-size:14px; cursor:pointer; font-family:'DM Sans',sans-serif; margin-top:12px; transition:0.2s; text-align:center; text-decoration:none; display:block; }
+.btn-back:hover { background:var(--dark3); color:var(--white); }
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo"><div class="logo-icon">🌿</div><h2>FoodShare</h2></div>
+  <a href="provider.html" class="nav-back">← Back to Dashboard</a>
+</nav>
+<div class="page">
+  <div class="card">
+    <div class="card-header">
+      <h2>🥘 Add Food Donation</h2>
+      <p>List your surplus food for NGOs and communities to request.</p>
+    </div>
+    <div class="success-msg" id="success">✅ Food donation added! Redirecting...</div>
+    <div class="form-group">
+      <label>Food Name *</label>
+      <div class="input-wrap"><i class="fa fa-utensils"></i><input type="text" id="f-name" placeholder="e.g. Veg Biryani, Rice & Dal"></div>
+    </div>
+    <div class="form-group">
+      <label>Quantity *</label>
+      <div class="input-wrap"><i class="fa fa-box"></i><input type="text" id="f-qty" placeholder="e.g. 15 Plates, 5 kg"></div>
+    </div>
+    <div class="form-group">
+      <label>Pickup Location *</label>
+      <div class="input-wrap"><i class="fa fa-map-marker-alt"></i><input type="text" id="f-loc" placeholder="Area, City"></div>
+    </div>
+    <div class="form-group">
+      <label>Best Before (Time) *</label>
+      <div class="input-wrap"><i class="fa fa-clock"></i><input type="time" id="f-exp"></div>
+    </div>
+    <div class="form-group">
+      <label>Additional Details</label>
+      <div class="input-wrap"><i class="fa fa-info-circle"></i><textarea id="f-det" rows="3" placeholder="Freshly cooked, hygienically packed, dietary info..."></textarea></div>
+    </div>
+    <button class="btn-submit" onclick="submit()">Submit Donation →</button>
+    <a href="provider.html" class="btn-back">Cancel</a>
+  </div>
+</div>
+
+<script src="db.js"></script>
+<script>
+const user = DB.requireAuth('provider');
+function submit() {
+  const name = document.getElementById('f-name').value.trim();
+  const qty = document.getElementById('f-qty').value.trim();
+  const loc = document.getElementById('f-loc').value.trim();
+  const exp = document.getElementById('f-exp').value;
+  const det = document.getElementById('f-det').value.trim();
+  if (!name||!qty||!loc||!exp) { alert('Please fill all required fields.'); return; }
+  DB.addFood({ name, quantity:qty, location:loc, expiry:exp, details:det, providerId:user.id, providerName:user.name });
+  document.getElementById('success').style.display='block';
+  setTimeout(() => window.location.href='provider.html', 1500);
+}
+</script>
+</body>
+</html>
